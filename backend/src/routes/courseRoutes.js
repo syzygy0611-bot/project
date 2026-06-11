@@ -13,10 +13,11 @@ const {
 
 const router = express.Router();
 
+// Public routes
 router.get("/categories", optionalAuth, getCategories);
-router.get("/my", optionalAuth, getCourses);
 router.get("/:id", optionalAuth, getCourseById);
 
+// Protected routes (instructor only)
 router.use(protect);
 router.get("/my", authorize("instructor"), getCourses);
 router.post("/", authorize("instructor"), createCourse);
