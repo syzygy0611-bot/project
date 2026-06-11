@@ -14,7 +14,7 @@ const {
 const router = express.Router();
 
 router.get("/categories", optionalAuth, getCategories);
-router.get("/", optionalAuth, getCourses);
+router.get("/my", optionalAuth, getCourses);
 router.get("/:id", optionalAuth, getCourseById);
 
 router.use(protect);
