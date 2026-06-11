@@ -50,8 +50,11 @@ const InstructorAssignments = () => {
     if (!selectedCourse) return;
     setLoading(true);
     try {
-      const { data } = await api.get(`/assignments/course/${selectedCourse}`);
-      setAssignments(data.assignments || []);
+      const { data } = await api.get("/assignments/my");
+      const filteredAssignments = (data.assignments || []).filter(
+        (a) => String(a.course?._id || a.course) === String(selectedCourse)
+      );
+      setAssignments(filteredAssignments);
     } catch (err) {
       console.error("Failed to load assignments", err);
       setToast({ type: "error", message: "Failed to load assignments" });
@@ -89,7 +92,8 @@ const InstructorAssignments = () => {
     setSaving(true);
     try {
       const submissionId = gradingSubmission._id;
-      await api.patch(`/assignments/${viewingSubmissions._id}/submissions/${submissionId}/grade`, {
+      await api.patch(`/assignments/${viewingSubmissions._id}/grade`, {
+        studentId: gradingSubmission.student,
         score: parseInt(gradeForm.score),
         feedback: gradeForm.feedback,
       });
