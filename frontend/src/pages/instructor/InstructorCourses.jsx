@@ -13,7 +13,7 @@ const InstructorCourses = () => {
   const [sort, setSort] = useState("newest");
 
   const load = () => {
-    api.get("/courses", { params: { status: "" } }).then(({ data }) => setCourses(data.courses));
+    api.get("/courses/my", { params: { status: "" } }).then(({ data }) => setCourses(data.courses));
   };
 
   useEffect(() => {
