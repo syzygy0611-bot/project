@@ -19,7 +19,7 @@ const StudentAssignments = () => {
   const loadAssignments = async () => {
     setLoading(true);
     try {
-      const { data } = await api.get("/assignments/student");
+      const { data } = await api.get("/assignments/my");
       setAssignments(data.assignments || []);
     } catch (err) {
       console.error("Failed to load assignments", err);
