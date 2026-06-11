@@ -38,7 +38,7 @@ const InstructorAssignments = () => {
       const { data } = await api.get("/courses/my");
       setCourses(data.courses || []);
       if (data.courses?.length > 0) {
-        setSelectedCourse(data.courses[0]._id);
+        setSelectedCourse(data.courses[0].id);
       }
     } catch (err) {
       console.error("Failed to load courses", err);
@@ -109,7 +109,7 @@ const InstructorAssignments = () => {
     }
   };
 
-  const currentCourse = courses.find(c => c._id === selectedCourse);
+  const currentCourse = courses.find(c => c.id === selectedCourse);
 
   return (
     <DashboardLayout title="Assignments">
@@ -148,7 +148,7 @@ const InstructorAssignments = () => {
             style={{ maxWidth: "400px" }}
           >
             {courses.map((course) => (
-              <option key={course._id} value={course._id}>
+              <option key={course.id} value={course.id}>
                 {course.title}
               </option>
             ))}
