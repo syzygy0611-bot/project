@@ -13,13 +13,15 @@ const {
 
 const router = express.Router();
 
-// Public routes
+// Public/optional routes
 router.get("/categories", optionalAuth, getCategories);
+
+// Specific routes BEFORE generic :id routes
+router.get("/my", protect, authorize("instructor"), getCourses);
 router.get("/:id", optionalAuth, getCourseById);
 
-// Protected routes (instructor only)
+// Protected routes for modifications
 router.use(protect);
-router.get("/my", authorize("instructor"), getCourses);
 router.post("/", authorize("instructor"), createCourse);
 router.put("/:id", authorize("instructor", "admin"), updateCourse);
 router.delete("/:id", authorize("instructor", "admin"), deleteCourse);
